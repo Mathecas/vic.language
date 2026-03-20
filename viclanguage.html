@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIC Language — Inglês que transforma futuros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --midnight: #0B1026;
+  --deep: #141B3D;
+  --navy: #1A2456;
+  --royal: #2E3F8F;
+  --accent: #FF6B35;
+  --accent-light: #FF8F65;
+  --gold: #FFB800;
+  --cream: #FFF8F0;
+  --white: #FFFFFF;
+  --gray-100: #F7F7FB;
+  --gray-200: #E8E9F0;
+  --gray-400: #9498B0;
+  --gray-600: #5A5F7A;
+  --text: #2A2D3E;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--sans);
+  color: var(--text);
+  background: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.fade-up { animation: fadeUp 0.8s ease forwards; }
+.fade-up-d1 { animation: fadeUp 0.8s ease 0.1s forwards; opacity: 0; }
+.fade-up-d2 { animation: fadeUp 0.8s ease 0.2s forwards; opacity: 0; }
+.fade-up-d3 { animation: fadeUp 0.8s ease 0.3s forwards; opacity: 0; }
+.fade-up-d4 { animation: fadeUp 0.8s ease 0.4s forwards; opacity: 0; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+}
+nav .nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2rem;
+}
+.logo {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--midnight);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: var(--gray-600);
+  font-size: 0.88rem; font-weight: 500;
+  transition: color 0.2s;
+  letter-spacing: 0.02em;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-cta {
+  background: var(--accent); color: var(--white) !important;
+  padding: 0.65rem 1.5rem; border-radius: 50px;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(255,107,53,0.3);
+}
+.nav-cta:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,53,0.4); }
+
+.menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+.menu-toggle span { display: block; width: 24px; height: 2px; background: var(--midnight); margin: 5px 0; transition: 0.3s; border-radius: 2px; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  background: var(--midnight);
+  position: relative;
+  overflow: hidden;
+  padding: 8rem 2rem 4rem;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 70% 40%, rgba(46,63,143,0.6), transparent),
+    radial-gradient(ellipse 40% 60% at 20% 80%, rgba(255,107,53,0.15), transparent),
+    radial-gradient(ellipse 50% 40% at 90% 90%, rgba(255,184,0,0.1), transparent);
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -50%; right: -20%;
+  width: 800px; height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,107,53,0.08), transparent 70%);
+  animation: float 8s ease-in-out infinite;
+}
+.hero-inner {
+  max-width: 1200px; margin: 0 auto; width: 100%;
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+  align-items: center;
+}
+.hero-content { animation: slideRight 1s ease; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 0.5rem 1rem; border-radius: 50px;
+  font-size: 0.8rem; color: var(--gold);
+  font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+.hero-badge::before { content: '✦'; font-size: 0.7rem; }
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+  position: relative;
+}
+.hero p {
+  color: rgba(255,255,255,0.7);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+.hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--accent); color: var(--white);
+  padding: 1rem 2rem; border-radius: 50px;
+  text-decoration: none; font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 30px rgba(255,107,53,0.4);
+  border: none; cursor: pointer;
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(255,107,53,0.5); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--white); padding: 1rem 2rem;
+  border-radius: 50px; text-decoration: none;
+  font-weight: 600; font-size: 0.95rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+
+.hero-visual {
+  position: relative;
+  display: flex; justify-content: center; align-items: center;
+}
+.hero-card {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  padding: 2.5rem;
+  width: 100%; max-width: 420px;
+  animation: fadeUp 1s ease 0.3s forwards; opacity: 0;
+}
+.hero-card h3 {
+  color: var(--white); font-family: var(--serif);
+  font-size: 1.4rem; margin-bottom: 1.5rem;
+}
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.stat-item {
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px; padding: 1.2rem;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform 0.3s;
+}
+.stat-item:hover { transform: scale(1.05); }
+.stat-number {
+  font-family: var(--serif);
+  font-size: 2rem; color: var(--accent);
+  display: block;
+}
+.stat-label {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.78rem; font-weight: 500;
+  margin-top: 0.3rem; display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── SOCIAL PROOF BAR ── */
+.proof-bar {
+  background: var(--cream);
+  padding: 2rem;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.proof-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; justify-content: center; gap: 3rem;
+  flex-wrap: wrap; align-items: center;
+}
+.proof-item {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 0.85rem; color: var(--gray-600); font-weight: 500;
+}
+.proof-icon { font-size: 1.3rem; }
+
+/* ── SECTIONS COMMON ── */
+section { padding: 6rem 2rem; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-label {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  color: var(--accent); font-size: 0.78rem;
+  font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.section-label::before { content: ''; width: 24px; height: 2px; background: var(--accent); }
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  color: var(--midnight);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+.section-subtitle {
+  color: var(--gray-600); font-size: 1.05rem;
+  max-width: 550px; line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ── COURSES ── */
+.courses { background: var(--gray-100); }
+.courses-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem; margin-top: 3rem;
+}
+.course-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid var(--gray-200);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+.course-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  opacity: 0; transition: opacity 0.3s;
+}
+.course-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  border-color: transparent;
+}
+.course-card:hover::before { opacity: 1; }
+.course-emoji {
+  width: 56px; height: 56px;
+  background: var(--cream);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+}
+.course-card h3 {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  color: var(--midnight);
+  margin-bottom: 0.8rem;
+}
+.course-card p {
+  color: var(--gray-600);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+}
+.course-tag {
+  display: inline-block;
+  background: var(--cream);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.8rem;
+  border-radius: 50px;
+  letter-spacing: 0.04em;
+}
+
+/* ── METHOD ── */
+.method-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+  align-items: center; margin-top: 3rem;
+}
+.method-steps { display: flex; flex-direction: column; gap: 1.5rem; }
+.method-step {
+  display: flex; gap: 1.2rem; align-items: flex-start;
+  padding: 1.5rem;
+  border-radius: 16px;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+}
+.method-step:hover { background: var(--gray-100); border-color: var(--gray-200); }
+.step-number {
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  background: var(--cream);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-size: 1.1rem; color: var(--accent);
+  font-weight: 700;
+}
+.method-step h4 {
+  font-size: 1rem; color: var(--midnight);
+  margin-bottom: 0.3rem; font-weight: 700;
+}
+.method-step p {
+  color: var(--gray-600); font-size: 0.88rem;
+  line-height: 1.6;
+}
+.method-visual {
+  background: var(--deep);
+  border-radius: 24px;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.method-visual::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 30% 70%, rgba(255,107,53,0.15), transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,184,0,0.1), transparent 50%);
+}
+.method-visual-content { position: relative; z-index: 2; }
+.method-visual h3 {
+  font-family: var(--serif);
+  font-size: 1.8rem; color: var(--white);
+  margin-bottom: 1rem;
+}
+.method-visual p {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.95rem; line-height: 1.7;
+}
+.method-highlight {
+  margin-top: 2rem;
+  display: flex; gap: 2rem;
+}
+.method-highlight div { text-align: center; }
+.method-highlight .num {
+  font-family: var(--serif);
+  font-size: 2.2rem; color: var(--gold);
+  display: block;
+}
+.method-highlight .label {
+  font-size: 0.75rem; color: rgba(255,255,255,0.5);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+/* ── TESTIMONIALS ── */
+.testimonials { background: var(--midnight); color: var(--white); }
+.testimonials .section-label { color: var(--gold); }
+.testimonials .section-label::before { background: var(--gold); }
+.testimonials .section-title { color: var(--white); }
+.testimonials .section-subtitle { color: rgba(255,255,255,0.6); }
+.testimonials-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem; margin-top: 3rem;
+}
+.testimonial-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.3s;
+}
+.testimonial-card:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-4px);
+}
+.testimonial-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 2px; }
+.testimonial-card p {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.95rem; line-height: 1.7;
+  margin-bottom: 1.2rem;
+  font-style: italic;
+}
+.testimonial-author {
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.testimonial-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 1rem; color: var(--white);
+}
+.testimonial-name { font-weight: 600; font-size: 0.9rem; color: var(--white); }
+.testimonial-role { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
+
+/* ── LOCATIONS ── */
+.locations-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.2rem; margin-top: 3rem;
+}
+.location-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  padding: 1.8rem;
+  transition: all 0.3s;
+}
+.location-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 30px rgba(255,107,53,0.1);
+  transform: translateY(-4px);
+}
+.location-card h4 {
+  font-family: var(--serif);
+  font-size: 1.1rem; color: var(--midnight);
+  margin-bottom: 0.6rem;
+}
+.location-card .addr {
+  color: var(--gray-600); font-size: 0.85rem;
+  line-height: 1.6;
+}
+.location-pin {
+  color: var(--accent); font-size: 1.4rem; margin-bottom: 0.8rem; display: block;
+}
+
+/* ── CTA SECTION ── */
+.cta-section {
+  background: linear-gradient(135deg, var(--accent), #E85520);
+  background-size: 200% 200%;
+  animation: gradientMove 6s ease infinite;
+  text-align: center;
+  padding: 5rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0,0,0,0.1), transparent 50%);
+}
+.cta-section * { position: relative; z-index: 2; }
+.cta-section h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+.cta-section p {
+  color: rgba(255,255,255,0.9);
+  font-size: 1.1rem; max-width: 500px;
+  margin: 0 auto 2rem; line-height: 1.6;
+}
+.btn-white {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--white); color: var(--accent);
+  padding: 1rem 2.5rem; border-radius: 50px;
+  text-decoration: none; font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+.btn-white:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 40px rgba(0,0,0,0.2); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--midnight);
+  color: rgba(255,255,255,0.6);
+  padding: 4rem 2rem 2rem;
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+}
+.footer-brand .logo { display: inline-block; margin-bottom: 1rem; }
+.footer-brand .logo { color: var(--white); }
+.footer-brand p { font-size: 0.88rem; line-height: 1.7; max-width: 280px; }
+.footer-col h5 {
+  color: var(--white); font-size: 0.82rem;
+  font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; margin-bottom: 1rem;
+}
+.footer-col a {
+  display: block; color: rgba(255,255,255,0.5);
+  text-decoration: none; font-size: 0.88rem;
+  margin-bottom: 0.6rem; transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom {
+  max-width: 1200px; margin: 3rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 1rem;
+  font-size: 0.8rem;
+}
+
+/* ── WHATSAPP FLOAT ── */
+.whatsapp-float {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 99;
+  width: 60px; height: 60px;
+  background: #25D366; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 25px rgba(37,211,102,0.4);
+  text-decoration: none;
+  transition: all 0.3s;
+  animation: pulse 2s ease infinite;
+}
+.whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 12px 35px rgba(37,211,102,0.5); }
+.whatsapp-float svg { width: 30px; height: 30px; fill: white; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; text-align: center; }
+  .hero p { margin-left: auto; margin-right: auto; }
+  .hero-buttons { justify-content: center; }
+  .hero-visual { margin-top: 2rem; }
+  .hero-card { margin: 0 auto; }
+  .method-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+  .menu-toggle { display: block; }
+  .nav-links.active {
+    display: flex; flex-direction: column;
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--white);
+    padding: 1.5rem 2rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    gap: 1rem;
+  }
+}
+@media (max-width: 600px) {
+  .footer-inner { grid-template-columns: 1fr; }
+  .proof-inner { gap: 1.5rem; }
+  section { padding: 4rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">VIC<span>Language</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#cursos">Cursos</a></li>
+      <li><a href="#metodo">Método</a></li>
+      <li><a href="#depoimentos">Depoimentos</a></li>
+      <li><a href="#unidades">Unidades</a></li>
+      <li><a href="#contato" class="nav-cta">Aula Grátis</a></li>
+    </ul>
+    <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">Matrículas Abertas 2026</div>
+      <h1>Inglês que<br><em>transforma</em> futuros</h1>
+      <p>Método exclusivo que combina imersão, prática real e acompanhamento personalizado. Seu filho aprende inglês de verdade, com confiança.</p>
+      <div class="hero-buttons">
+        <a href="#contato" class="btn-primary">Agendar Aula Grátis →</a>
+        <a href="#cursos" class="btn-secondary">Ver Cursos</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <h3>Por que a VIC?</h3>
+        <div class="stat-grid">
+          <div class="stat-item">
+            <span class="stat-number">500+</span>
+            <span class="stat-label">Alunos Ativos</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">4</span>
+            <span class="stat-label">Unidades</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">97%</span>
+            <span class="stat-label">Aprovação</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">8+</span>
+            <span class="stat-label">Anos de Exp.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<div class="proof-bar">
+  <div class="proof-inner">
+    <div class="proof-item"><span class="proof-icon">🏆</span> Alunos medalhistas em olimpíadas nacionais</div>
+    <div class="proof-item"><span class="proof-icon">📚</span> Preparação IELTS com resultados comprovados</div>
+    <div class="proof-item"><span class="proof-icon">🌎</span> Atividades imersivas fora da sala de aula</div>
+    <div class="proof-item"><span class="proof-icon">⭐</span> Nota 4.9 no Google</div>
+  </div>
+</div>
+
+<!-- COURSES -->
+<section class="courses" id="cursos">
+  <div class="section-inner">
+    <div class="section-label">Nossos Cursos</div>
+    <h2 class="section-title">O curso certo para<br>cada fase da vida</h2>
+    <p class="section-subtitle">Do primeiro contato com o inglês até a preparação para certificações internacionais.</p>
+
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-emoji">🧒</div>
+        <h3>Kids — 4 a 6 anos</h3>
+        <p>Primeiro contato com o inglês de forma lúdica, com músicas, jogos e atividades sensoriais que despertam a curiosidade natural.</p>
+        <span class="course-tag">A partir de 4 anos</span>
+      </div>
+      <div class="course-card">
+        <div class="course-emoji">📖</div>
+        <h3>Inglês Acadêmico</h3>
+        <p>Reforço escolar e desenvolvimento das 4 habilidades — reading, writing, listening e speaking — com foco em resultados.</p>
+        <span class="course-tag">7 a 14 anos</span>
+      </div>
+      <div class="course-card">
+        <div class="course-emoji">🎯</div>
+        <h3>Preparatório IELTS</h3>
+        <p>Estratégias específicas para cada seção do IELTS, com simulados regulares e feedback detalhado dos instrutores.</p>
+        <span class="course-tag">A partir de 15 anos</span>
+      </div>
+      <div class="course-card">
+        <div class="course-emoji">🚀</div>
+        <h3>Inglês do Zero</h3>
+        <p>Para quem quer recomeçar ou nunca estudou. Metodologia acolhedora, sem julgamento, com evolução rápida e consistente.</p>
+        <span class="course-tag">Todas as idades</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHOD -->
+<section id="metodo">
+  <div class="section-inner">
+    <div class="section-label">Nosso Método</div>
+    <h2 class="section-title">Aprender inglês não precisa<br>ser complicado</h2>
+    <p class="section-subtitle">Nossa metodologia exclusiva garante evolução real, com acompanhamento individual em cada etapa.</p>
+
+    <div class="method-grid">
+      <div class="method-steps">
+        <div class="method-step">
+          <div class="step-number">01</div>
+          <div>
+            <h4>Diagnóstico Personalizado</h4>
+            <p>Avaliamos o nível, os objetivos e o perfil de aprendizagem de cada aluno para montar o plano ideal.</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="step-number">02</div>
+          <div>
+            <h4>Imersão na Prática</h4>
+            <p>Aulas 100% focadas em situações reais. Nada de decorar regras — aqui você usa o inglês de verdade.</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="step-number">03</div>
+          <div>
+            <h4>Atividades Fora da Sala</h4>
+            <p>City Tours, Shopping Days e eventos temáticos que transformam o aprendizado em experiência de vida.</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="step-number">04</div>
+          <div>
+            <h4>Acompanhamento Contínuo</h4>
+            <p>Relatórios de evolução, feedback constante e comunicação direta com os pais sobre o progresso.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="method-visual">
+        <div class="method-visual-content">
+          <h3>Resultados que falam por si</h3>
+          <p>Nossos alunos conquistam medalhas em olimpíadas, notas máximas em provas escolares e confiança para usar o inglês no dia a dia.</p>
+          <div class="method-highlight">
+            <div>
+              <span class="num">97%</span>
+              <span class="label">Satisfação</span>
+            </div>
+            <div>
+              <span class="num">12+</span>
+              <span class="label">Medalhas</span>
+            </div>
+            <div>
+              <span class="num">500+</span>
+              <span class="label">Formados</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="depoimentos">
+  <div class="section-inner">
+    <div class="section-label">Depoimentos</div>
+    <h2 class="section-title">O que os pais dizem</h2>
+    <p class="section-subtitle">Histórias reais de famílias que confiaram na VIC Language.</p>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★ ★ ★ ★ ★</div>
+        <p>"Meu filho começou com 5 anos e hoje, com 8, já tem uma pronúncia incrível. As atividades fora da sala fazem toda a diferença!"</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">M</div>
+          <div>
+            <div class="testimonial-name">Maria Silva</div>
+            <div class="testimonial-role">Mãe do Pedro, aluno há 3 anos</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★ ★ ★ ★ ★</div>
+        <p>"A VIC não é só uma escola de inglês, é uma família. O cuidado que têm com cada aluno é impressionante. Recomendo de olhos fechados."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">R</div>
+          <div>
+            <div class="testimonial-name">Roberto Oliveira</div>
+            <div class="testimonial-role">Pai da Ana, aluna medalhista IOE</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★ ★ ★ ★ ★</div>
+        <p>"Fiz o preparatório IELTS e consegui a nota que precisava para o intercâmbio. As estratégias de prova foram essenciais."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">L</div>
+          <div>
+            <div class="testimonial-name">Lucas Ferreira</div>
+            <div class="testimonial-role">Ex-aluno, hoje estudando no Canadá</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATIONS -->
+<section id="unidades">
+  <div class="section-inner">
+    <div class="section-label">Nossas Unidades</div>
+    <h2 class="section-title">4 unidades para<br>ficar perto de você</h2>
+    <p class="section-subtitle">Todas com estrutura moderna, salas climatizadas e ambiente preparado para o aprendizado.</p>
+
+    <div class="locations-grid">
+      <div class="location-card">
+        <span class="location-pin">📍</span>
+        <h4>Phúc Yên</h4>
+        <p class="addr">80 Xuân Thủy, Phường Hùng Vương, Phúc Yên, Vĩnh Phúc</p>
+      </div>
+      <div class="location-card">
+        <span class="location-pin">📍</span>
+        <h4>Quang Minh</h4>
+        <p class="addr">Chi Đông, Mê Linh, Hanoi</p>
+      </div>
+      <div class="location-card">
+        <span class="location-pin">📍</span>
+        <h4>Yên Lạc</h4>
+        <p class="addr">56 Bùi Xuân Phái, TT. Yên Lạc, Yên Lạc, Vĩnh Phúc</p>
+      </div>
+      <div class="location-card">
+        <span class="location-pin">📍</span>
+        <h4>Vĩnh Tường</h4>
+        <p class="addr">Khu phố Toàn Phát, Thổ Tang, Vĩnh Tường, Vĩnh Phúc</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contato">
+  <h2>Pronto para começar?</h2>
+  <p>Agende uma aula experimental gratuita e descubra o método VIC na prática. Sem compromisso.</p>
+  <a href="https://wa.me/5500000000000?text=Olá! Gostaria de agendar uma aula experimental gratuita." class="btn-white">
+    Falar no WhatsApp →
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo">VIC<span>Language</span></a>
+      <p>Transformando o futuro através do inglês desde 2018. Método exclusivo, resultados comprovados.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Cursos</h5>
+      <a href="#">Kids (4-6 anos)</a>
+      <a href="#">Inglês Acadêmico</a>
+      <a href="#">Preparatório IELTS</a>
+      <a href="#">Inglês do Zero</a>
+    </div>
+    <div class="footer-col">
+      <h5>Institucional</h5>
+      <a href="#">Sobre a VIC</a>
+      <a href="#">Nosso Método</a>
+      <a href="#">Equipe</a>
+      <a href="#">Blog</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contato</h5>
+      <a href="#">WhatsApp</a>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">Email</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 VIC Language. Todos os direitos reservados.</span>
+    <span>Seg a Dom: 08h30 – 21h00</span>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/5500000000000" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- SCROLL ANIMATIONS -->
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.course-card, .method-step, .testimonial-card, .location-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'all 0.6s ease';
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
